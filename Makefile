@@ -1,3 +1,5 @@
+APP_NAME:=rfc4627_jsonrpc
+
 ifdef PACKAGE_DIR
 UPSTREAM_GIT:=http://github.com/tonyg/erlang-rfc4627.git
 
