@@ -22,7 +22,7 @@ $(CHECKOUT_DIR):
 
 $(CHECKOUT_DIR)/stamp: | $(CHECKOUT_DIR)
 	rm -f $@
-	cd $(@D) && echo COMMIT_SHORT_HASH:=$$(git log -n 1 --format=format:"%h" HEAD) >> $@
+	cd $(@D) && echo COMMIT_SHORT_HASH:=$$(git log -n 1 --format=format:"%h" HEAD) > $@
 
 .PHONY: $(EBIN_DIR)/$(APP_NAME).app
 $(EBIN_DIR)/$(APP_NAME).app: $(CHECKOUT_DIR)/ebin/$(APP_NAME).app | $(EBIN_DIR)
