@@ -22,8 +22,8 @@ $(CHECKOUT_DIR):
 
 $(CHECKOUT_DIR)/stamp: | $(CHECKOUT_DIR)
 	rm -f $@
-	cd $(@D) && echo COMMIT_DATE:=$$(date -u +"%Y%m%d" --date="$$(git log --since=$$(git rev-parse HEAD) -n 1 --date=iso --format=format:"%cd")") > $@
-	cd $(@D) && echo COMMIT_SHORT_HASH:=$$(git log --since=$$(git rev-parse HEAD) -n 1 --format=format:"%h") >> $@
+	cd $(@D) && echo COMMIT_DATE:=$$(date -u +"%Y%m%d" --date="$$(git log -n 1 --date=iso --format=format:"%cd" HEAD)") > $@
+	cd $(@D) && echo COMMIT_SHORT_HASH:=$$(git log -n 1 --format=format:"%h" HEAD) >> $@
 
 .PHONY: $(EBIN_DIR)/$(APP_NAME).app
 $(EBIN_DIR)/$(APP_NAME).app: $(CHECKOUT_DIR)/ebin/$(APP_NAME).app | $(EBIN_DIR)
