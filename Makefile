@@ -22,7 +22,6 @@ $(CHECKOUT_DIR):
 
 $(CHECKOUT_DIR)/stamp: | $(CHECKOUT_DIR)
 	rm -f $@
-	cd $(@D) && echo COMMIT_DATE:=$$(date -u +"%Y%m%d" --date="$$(git log -n 1 --date=iso --format=format:"%cd" HEAD)") > $@
 	cd $(@D) && echo COMMIT_SHORT_HASH:=$$(git log -n 1 --format=format:"%h" HEAD) >> $@
 
 .PHONY: $(EBIN_DIR)/$(APP_NAME).app
@@ -36,7 +35,7 @@ $(PACKAGE_DIR)/clean::
 ifneq "$(strip $(patsubst clean%,,$(patsubst %clean,,$(TESTABLEGOALS))))" ""
 include $(CHECKOUT_DIR)/stamp
 
-VERSION:=rmq$(GLOBAL_VERSION)-$(COMMIT_DATE)-git$(COMMIT_SHORT_HASH)
+VERSION:=rmq$(GLOBAL_VERSION)-git$(COMMIT_SHORT_HASH)
 $(EBIN_DIR)/$(APP_NAME).app_VERSION:=$(VERSION)
 endif
 endif
