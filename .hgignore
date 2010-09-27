@@ -1,8 +1,7 @@
 syntax: regexp
 .*~$
 ^deps.mk$
-^mochiweb-git/
+^erlang-rfc4627-git/
 ^ebin
 ^dist
 ^deps
-\.stamp$

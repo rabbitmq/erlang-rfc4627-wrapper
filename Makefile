@@ -11,9 +11,9 @@ APP_NAME:=rfc4627_jsonrpc
 ## change, and supply a compile-time macro definition to allow
 ## rfc4627_jsonrpc_inets.erl to adapt to the new path.
 ifeq ($(shell test R14A \> $$(erl -noshell -eval 'io:format(erlang:system_info(otp_release)), halt().') && echo yes),yes)
-ERLC_OPTS =
+ERLC_OPTS:=
 else
-ERLC_OPTS +=-Dnew_inets
+ERLC_OPTS:=-Dnew_inets
 endif
 
 $(CHECKOUT_DIR)_UPSTREAM_GIT:=$(UPSTREAM_GIT)
