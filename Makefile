@@ -16,22 +16,29 @@ else
 ERLC_OPTS +=-Dnew_inets
 endif
 
+$(CHECKOUT_DIR)_UPSTREAM_GIT:=$(UPSTREAM_GIT)
 $(CHECKOUT_DIR):
-	git clone $(UPSTREAM_GIT) $@
+	git clone $($@_UPSTREAM_GIT) $@
 
-$(CHECKOUT_DIR).stamp: | $(CHECKOUT_DIR)
-	touch $@
+$(CHECKOUT_DIR)/stamp: | $(CHECKOUT_DIR)
+	rm -f $@
+	cd $(@D) && echo COMMIT_DATE:=$$(date -u +"%Y%m%d" --date="$$(git log --since=$$(git rev-parse HEAD) -n 1 --date=iso --format=format:"%cd")") > $@
+	cd $(@D) && echo COMMIT_SHORT_HASH:=$$(git log --since=$$(git rev-parse HEAD) -n 1 --format=format:"%h") >> $@
 
-$(EBIN_DIR):
-	mkdir -p $@
+.PHONY: $(EBIN_DIR)/$(APP_NAME).app
+$(EBIN_DIR)/$(APP_NAME).app: $(CHECKOUT_DIR)/ebin/$(APP_NAME).app | $(EBIN_DIR)
+	sed -e 's/{vsn, *\"[^\"]\+\"/{vsn,\"$($@_VERSION)\"/' < $< > $@
 
-$(EBIN_DIR)/$(APP_NAME).app: | $(EBIN_DIR)
-	cp $(CHECKOUT_DIR)/ebin/$(@F) $@
-
+$(PACKAGE_DIR)/clean_RM:=$(CHECKOUT_DIR) $(CHECKOUT_DIR)/stamp $(EBIN_DIR)/$(APP_NAME).app
 $(PACKAGE_DIR)/clean::
-	rm -rf $(CHECKOUT_DIR) $(CHECKOUT_DIR).stamp
+	rm -rf $($@_RM)
 
-include $(CHECKOUT_DIR).stamp
+ifneq "$(strip $(patsubst clean%,,$(patsubst %clean,,$(TESTABLEGOALS))))" ""
+include $(CHECKOUT_DIR)/stamp
+
+VERSION:=rmq$(GLOBAL_VERSION)-$(COMMIT_DATE)-git$(COMMIT_SHORT_HASH)
+$(EBIN_DIR)/$(APP_NAME).app_VERSION:=$(VERSION)
+endif
 endif
 
 include ../include.mk
