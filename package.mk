@@ -2,7 +2,6 @@ APP_NAME:=rfc4627_jsonrpc
 
 UPSTREAM_GIT:=http://github.com/tonyg/erlang-rfc4627.git
 
-EBIN_DIR:=$(PACKAGE_DIR)/ebin
 CHECKOUT_DIR:=$(PACKAGE_DIR)/erlang-rfc4627-git
 SOURCE_DIR:=$(CHECKOUT_DIR)/src
 INCLUDE_DIR:=$(CHECKOUT_DIR)/include
