@@ -15,26 +15,25 @@ else
 ERLC_OPTS:=-Dnew_inets
 endif
 
-$(CHECKOUT_DIR)_UPSTREAM_GIT:=$(UPSTREAM_GIT)
-$(CHECKOUT_DIR):
-	git clone $($@_UPSTREAM_GIT) $@
-
-$(CHECKOUT_DIR)/stamp: | $(CHECKOUT_DIR)
-	rm -f $@
-	cd $(@D) && echo COMMIT_SHORT_HASH:=$$(git log -n 1 --format=format:"%h" HEAD) > $@
-
-$(PACKAGE_DIR)/clean_RM:=$(CHECKOUT_DIR) $(CHECKOUT_DIR)/stamp $(EBIN_DIR)/$(APP_NAME).app
-$(PACKAGE_DIR)/clean::
-	rm -rf $($@_RM)
-
-ifneq "$(strip $(patsubst clean%,,$(patsubst %clean,,$(TESTABLEGOALS))))" ""
-include $(CHECKOUT_DIR)/stamp
+$(eval $(call safe_include,$(PACKAGE_DIR)/version.mk))
 
 VERSION:=rmq$(GLOBAL_VERSION)-git$(COMMIT_SHORT_HASH)
 
-$(EBIN_DIR)/$(APP_NAME).app.$(VERSION)_VERSION:=$(VERSION)
-$(EBIN_DIR)/$(APP_NAME).app.$(VERSION): $(CHECKOUT_DIR)/ebin/$(APP_NAME).app | $(EBIN_DIR)
-	sed -e 's/{vsn, *\"[^\"]\+\"/{vsn,\"$($@_VERSION)\"/' < $< > $@
+define package_targets
 
-$(PACKAGE_DIR)_APP:=true
-endif
+$(CHECKOUT_DIR)/.done:
+	rm -rf $(CHECKOUT_DIR)
+	git clone $(UPSTREAM_GIT) $(CHECKOUT_DIR)
+	touch $$@
+
+$(PACKAGE_DIR)/version.mk: $(CHECKOUT_DIR)/.done
+	echo COMMIT_SHORT_HASH:=`git --git-dir=$(CHECKOUT_DIR)/.git log -n 1 --format=format:"%h" HEAD` >$$@
+
+$(EBIN_DIR)/$(APP_NAME).app: $(CHECKOUT_DIR)/ebin/$(APP_NAME).app $(PACKAGE_DIR)/version.mk
+	@mkdir -p $$(@D)
+	sed -e 's|{vsn, *\"[^\"]*\"|{vsn,\"$(VERSION)\"|' <$$< >$$@
+
+$(PACKAGE_DIR)+clean::
+	rm -rf $(CHECKOUT_DIR) $(EBIN_DIR)/$(APP_NAME).app $(PACKAGE_DIR)/version.mk
+
+endef
