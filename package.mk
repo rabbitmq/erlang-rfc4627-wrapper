@@ -3,8 +3,8 @@ APP_NAME:=rfc4627_jsonrpc
 UPSTREAM_GIT:=http://github.com/tonyg/erlang-rfc4627.git
 
 CHECKOUT_DIR:=$(PACKAGE_DIR)/erlang-rfc4627-git
-SOURCE_DIR:=$(CHECKOUT_DIR)/src
-INCLUDE_DIR:=$(CHECKOUT_DIR)/include
+SOURCE_DIRS+=$(CHECKOUT_DIR)/src
+INCLUDE_DIRS+=$(CHECKOUT_DIR)/include
 
 ## The path to httpd.hrl has changed in OTP R14A and newer. Detect the
 ## change, and supply a compile-time macro definition to allow
