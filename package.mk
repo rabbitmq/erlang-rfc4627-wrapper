@@ -1,4 +1,5 @@
 APP_NAME:=rfc4627_jsonrpc
+DEPS:=mochiweb-wrapper
 
 UPSTREAM_GIT:=http://github.com/tonyg/erlang-rfc4627.git
 UPSTREAM_REVISION:=30c84984f86a1d67083f
