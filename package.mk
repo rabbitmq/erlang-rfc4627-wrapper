@@ -3,6 +3,8 @@ DEPS:=mochiweb-wrapper
 
 UPSTREAM_GIT:=http://github.com/tonyg/erlang-rfc4627.git
 UPSTREAM_REVISION:=30c84984f86a1d67083f
+WRAPPER_PATCHES:=fix-ets-leak.patch
+
 ORIGINAL_APP_FILE=$(CLONE_DIR)/ebin/$(APP_NAME).app
 DO_NOT_GENERATE_APP_FILE=true
 
