@@ -2,8 +2,7 @@ APP_NAME:=rfc4627_jsonrpc
 DEPS:=mochiweb-wrapper
 
 UPSTREAM_GIT:=http://github.com/tonyg/erlang-rfc4627.git
-UPSTREAM_REVISION:=30c84984f86a1d67083f
-WRAPPER_PATCHES:=fix-ets-leak.patch 10-inets-httpd-header.patch
+UPSTREAM_REVISION:=a5e7ad77963f1e7130d8ca870cfd9a7c1a12c8cc
 
 ORIGINAL_APP_FILE=$(CLONE_DIR)/ebin/$(APP_NAME).app
 DO_NOT_GENERATE_APP_FILE=true
@@ -14,7 +13,7 @@ DO_NOT_GENERATE_APP_FILE=true
 ifeq ($(shell erl -noshell -eval 'io:format([list_to_integer(X) || X <- string:tokens(erlang:system_info(version), ".")] < [5,8]), halt().'),true)
 PACKAGE_ERLC_OPTS+=-Dinets_pre_r14a
 else
-ifeq ($(shell erl -noshell -eval 'io:format([list_to_integer(X) || X <- string:tokens(erlang:system_info(version), ".")] < [5,8,3]), halt().'),true)
-PACKAGE_ERLC_OPTS+=-Dinets_pre_r14b02
+ifeq ($(shell erl -noshell -eval 'io:format([list_to_integer(X) || X <- string:tokens(erlang:system_info(version), ".")] < [5,8,2]), halt().'),true)
+PACKAGE_ERLC_OPTS+=-Dinets_pre_r14b01
 endif
 endif
