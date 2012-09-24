@@ -4,4 +4,5 @@
 ^dist/
 ^cover/
 ^erl_crash.dump$
+^hash.mk$
 ^erlang-rfc4627-git/
