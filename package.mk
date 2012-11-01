@@ -1,7 +1,7 @@
 APP_NAME:=rfc4627_jsonrpc
 DEPS:=mochiweb-wrapper
 
-UPSTREAM_GIT:=http://github.com/tonyg/erlang-rfc4627.git
+UPSTREAM_GIT:=http://github.com/rabbitmq/erlang-rfc4627.git
 UPSTREAM_REVISION:=a5e7ad77963f1e7130d8ca870cfd9a7c1a12c8cc
 
 ORIGINAL_APP_FILE=$(CLONE_DIR)/ebin/$(APP_NAME).app
