@@ -2,7 +2,7 @@ APP_NAME:=rfc4627_jsonrpc
 DEPS:=mochiweb-wrapper
 
 UPSTREAM_GIT:=http://github.com/rabbitmq/erlang-rfc4627.git
-UPSTREAM_REVISION:=7ab174bc5adc3ec4ea73d69849340fa6fe2cd719
+UPSTREAM_REVISION:=5e67120216b11a2ff5d74e00a789b219d0a3bc36
 
 ORIGINAL_APP_FILE=$(CLONE_DIR)/ebin/$(APP_NAME).app
 DO_NOT_GENERATE_APP_FILE=true
