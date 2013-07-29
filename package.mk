@@ -4,6 +4,8 @@ DEPS:=mochiweb-wrapper
 UPSTREAM_GIT:=http://github.com/rabbitmq/erlang-rfc4627.git
 UPSTREAM_REVISION:=5e67120216b11a2ff5d74e00a789b219d0a3bc36
 
+WRAPPER_PATCHES:=10-no-cowboy-dependency.patch
+
 ORIGINAL_APP_FILE=$(CLONE_DIR)/ebin/$(APP_NAME).app
 DO_NOT_GENERATE_APP_FILE=true
 
