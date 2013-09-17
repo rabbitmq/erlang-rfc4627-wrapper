@@ -1,3 +1,15 @@
+diff --git a/ebin/rfc4627_jsonrpc.app b/ebin/rfc4627_jsonrpc.app
+index ef9fe44..e06b46c 100644
+--- a/ebin/rfc4627_jsonrpc.app
++++ b/ebin/rfc4627_jsonrpc.app
+@@ -9,7 +9,6 @@
+     rfc4627_jsonrpc_http,
+     rfc4627_jsonrpc_inets,
+     rfc4627_jsonrpc_mochiweb,
+-    rfc4627_jsonrpc_cowboy,
+     rfc4627_jsonrpc_registry
+   ]},
+   {registered, []},
 diff --git a/src/rfc4627_jsonrpc_cowboy.erl b/src/rfc4627_jsonrpc_cowboy.erl
 deleted file mode 100644
 index 2af0fd8..0000000
